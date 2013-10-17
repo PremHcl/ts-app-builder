@@ -50,7 +50,7 @@ Create a new directory for your app, cd into that directory, then type:
 You'll be prompted for some default values.  You can change them in teh resulting config.json and auth.json
 files. 
 
-After the prompt comes back, do a local install by typing:
+After the prompt comes back, do a local install by typing (ignore warnings about missing repositories):
 
     npm install
     

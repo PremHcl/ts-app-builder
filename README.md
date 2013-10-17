@@ -45,7 +45,7 @@ When 1-3 are done, you can do this step in as many different places as you like.
 
 Create a new directory for your app, cd into that directory, then type:
 
-    grunt init ts-app-builder
+    grunt-init ts-app-builder
 
 You'll be prompted for some default values.  You can change them in teh resulting config.json and auth.json
 files. 

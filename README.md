@@ -34,6 +34,7 @@ sudo as shown below. On Windows, you will not use the sudo part of the command.
 
 3.  **Install template** The easiest thing is to install this template to 
   your home directory:
+    
     git clone https://github.com/RallyTechServices/ts-app-builder.git ~/.grunt-init/ts-app-builder
 
   _(Windows users, see [the documentation][grunt-init] for the correct destination directory path)_

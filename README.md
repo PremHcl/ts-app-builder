@@ -26,18 +26,17 @@ this command to see that it installed:
 
         npm --version
 
-2.  **Install grunt**
-From the command line, use the node package manager to install grunt.  On linux/mac, you might have to use 
+2.  **Install grunt** From the command line, use the node package manager to install grunt.  On linux/mac, you might have to use 
 sudo as shown below. On Windows, you will not use the sudo part of the command.
 
         sudo npm install -g grunt-cli
         sudo npm install -g grunt-init
 
-3.  **Install template**
-The easiest thing is to install this template to your home directory:
+3.  **Install template** The easiest thing is to install this template to 
+  your home directory:
     git clone https://github.com/RallyTechServices/ts-app-builder.git ~/.grunt-init/ts-app-builder
 
-_(Windows users, see [the documentation][grunt-init] for the correct destination directory path)_
+  _(Windows users, see [the documentation][grunt-init] for the correct destination directory path)_
 
 4.  **Create** 
 

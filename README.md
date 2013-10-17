@@ -65,6 +65,11 @@ Something like this:
     >> 1 failures
     Warning: Task "jasmine:fast" failed. Use --force to continue.
 
+Another check:  You should be able to compile the debug version and view it (after logging in to Rally) 
+in a new tab.  
+
+    grunt debug
+
 # Usage of the grunt file
 ##Tasks
     

@@ -1,0 +1,6 @@
+{
+    "name": "{%= title %}",
+    "className": "CustomApp",
+    "server": "{%= server %}",
+    "sdk": "{%= sdk %}"
+}

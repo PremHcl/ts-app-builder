@@ -2,6 +2,20 @@
 
 # Development Notes
 
+## First Load
+
+If you've just downloaded this from github and you want to do development, 
+you're going to need to have these installed:
+
+ * node.js
+ * grunt-cli
+ * grunt-init
+
+If you have those three installed, just type this in the root directory here
+to get set up to develop:
+
+  npm install
+
 ## Structure
 
   * src/javascript:  All the JS files saved here will be compiled into the 

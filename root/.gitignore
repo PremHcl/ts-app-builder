@@ -3,4 +3,4 @@ auth.json
 App-debug.html
 .*
 _SpecRunner.html
-/test/
+/test/logs/

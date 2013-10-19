@@ -13,7 +13,8 @@ module.exports = function(grunt) {
 
         config.js_files = grunt.file.expand( 'src/javascript/*.js' );
         config.css_files = grunt.file.expand( 'src/style/*.css' );
-    
+        config.checksum = "<!= checksum !>";
+        
         config.js_contents = " ";
         for (var i=0;i<config.js_files.length;i++) {
             grunt.log.writeln( config.js_files[i]);
@@ -78,22 +79,42 @@ module.exports = function(grunt) {
             }
         }
     });
+    
+    grunt.registerTask('setChecksum', 'Create .md5 checksum file *', function() {
+        var deploy_file = 'deploy/App.html';
+        
+        var fs = require('fs');
+        var crypto = require('crypto');
+        md5 = crypto.createHash('md5');
+        var file = grunt.file.read(deploy_file);
+        md5.update(file);
+        var md5Hash = md5.digest('hex');
+        grunt.log.writeln('file md5: ' + md5Hash);
+// 
+        grunt.template.addDelimiters('square-brackets','[%','%]');
+        
+        var output = grunt.template.process(file, { data: { checksum: md5Hash },  delimiters: 'square-brackets' });
+        grunt.file.write(deploy_file,output);
+        
+//        // Create new file with the same name with .md5 extension
+//        var md5FileName = file + '.md5';
+//        grunt.file.write(md5FileName, md5Hash);
+//        grunt.log.write('File "' + md5FileName + '" created.').verbose.write('...').ok();
+    });
 
     //load
     grunt.loadNpmTasks('grunt-templater');
     grunt.loadNpmTasks('grunt-contrib-jasmine');
     
-    // default creates an html file that can be copied and pasted into a Rally app
+    //tasks
+    grunt.registerTask('default', ['debug','build']);
+    
     // (uses all the files in src/javascript)
-    grunt.registerTask('default', ['template:prod']);
-    // debug creates an html file that can be loaded on its own without copying and pasting into Rally
-    grunt.registerTask('debug', ['template:dev']);
-    
-    // scratch creates an html file that can be copied and pasted into a Rally app 
-    // (uses only specified files for targeted review)
-    grunt.registerTask('scratch', ['template:scratch']);
-    
-    grunt.registerTask('test-fast', ['jasmine:fast']);
-    grunt.registerTask('test-slow', ['jasmine:slow']);
+    grunt.registerTask('build', "Create the html for deployment",['template:prod','setChecksum']);
+    // 
+    grunt.registerTask('debug', "Create an html file that can run in its own tab", ['template:dev']);
+   
+    grunt.registerTask('test-fast', "Run tests that don't need to connect to Rally", ['jasmine:fast']);
+    grunt.registerTask('test-slow', "Run tests that need to connect to Rally", ['jasmine:slow']);
 
 };

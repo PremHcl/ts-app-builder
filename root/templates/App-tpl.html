@@ -4,6 +4,12 @@
     <title><%= name %></title>
     <!--  (c) 2013 Rally Software Development Corp.  All Rights Reserved. -->
     <!--  Build Date: <%= new Date() %> -->
+    
+    <script type="text/javascript">
+        var APP_BUILD_DATE = "<%= new Date() %>";
+        var CHECKSUM = "[%= checksum %]";
+    </script>
+    
     <script type="text/javascript" src="/apps/<%= sdk %>/sdk.js"></script>
 
     <script type="text/javascript">

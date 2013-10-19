@@ -44,7 +44,7 @@ Ext.define('Rally.technicalservices.InfoLink',{
     },
     onClick: function(e) {
         var me = this;
-        var current_size = this._determineSize(this);
+        // var current_size = this._determineSize(this);
         
         var dialog_items = [];
         

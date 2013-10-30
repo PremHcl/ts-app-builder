@@ -35,6 +35,12 @@ to get set up to develop:
   create the debug and production html files.  Server is only used for debug,
   name, className and sdk are used for both.
   * package.json: This file lists the dependencies for grunt
+  * auth.json: This file should NOT be checked in.  Create this to run the
+  slow test specs.  It should look like:
+    {
+        "username":"you@company.com",
+        "password":"secret"
+    }
   
 ## Usage of the grunt file
 ###Tasks

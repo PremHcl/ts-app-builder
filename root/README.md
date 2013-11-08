@@ -1,8 +1,8 @@
-{%= title %}
+#{%= title %}
 
-# Development Notes
+## Development Notes
 
-## First Load
+### First Load
 
 If you've just downloaded this from github and you want to do development, 
 you're going to need to have these installed:
@@ -16,7 +16,7 @@ to get set up to develop:
 
   npm install
 
-## Structure
+### Structure
 
   * src/javascript:  All the JS files saved here will be compiled into the 
   target html file
@@ -42,24 +42,24 @@ to get set up to develop:
         "password":"secret"
     }
   
-## Usage of the grunt file
-###Tasks
+### Usage of the grunt file
+####Tasks
     
-#### grunt debug
+##### grunt debug
 
 Use grunt debug to create the debug html file.  You only need to run this when you have added new files to
 the src directories.
 
-#### grunt build
+##### grunt build
 
 Use grunt build to create the production html file.  We still have to copy the html file to a panel to test.
 
-#### grunt test-fast
+##### grunt test-fast
 
 Use grunt test-fast to run the Jasmine tests in the fast directory.  Typically, the tests in the fast 
 directory are more pure unit tests and do not need to connect to Rally.
 
-#### grunt test-slow
+##### grunt test-slow
 
 Use grunt test-slow to run the Jasmine tests in the slow directory.  Typically, the tests in the slow
 directory are more like integration tests in that they require connecting to Rally and interacting with

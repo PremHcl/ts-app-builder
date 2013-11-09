@@ -1,6 +1,6 @@
 /*
  */
-Ext.define('Rally.technicalservices.logger',{
+Ext.define('Rally.technicalservices.Logger',{
     constructor: function(config){
         Ext.apply(this,config);
     },

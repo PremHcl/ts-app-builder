@@ -19,7 +19,7 @@ exports.warnOn = '*';
 exports.template = function(grunt,init,done) {
     init.process({},[
         init.prompt('title','My App'),
-        { name: 'sdk', message: 'SDK version', 'default': '2.0rc1' },
+        { name: 'sdk', message: 'SDK version', 'default': '2.0rc2' },
         { name: 'user', message: 'Username for integration tests' },
         { name: 'password', message: 'Password for integration tests' },
         { 

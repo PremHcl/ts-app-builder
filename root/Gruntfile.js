@@ -11,6 +11,9 @@ module.exports = function(grunt) {
         config = grunt.file.readJSON('config.json');
 
         config.js_files = grunt.file.expand(['src/javascript/*.js']);
+
+        config.ugly_files = grunt.file.expand(['deploy/app.min.*.js']);
+        
         config.css_files = grunt.file.expand( 'src/style/*.css' );
         config.checksum = "<!= checksum !>";
         
@@ -26,7 +29,10 @@ module.exports = function(grunt) {
             config.style_contents = config.style_contents + "\n" + grunt.file.read(config.css_files[i]);
         }
         
-        config.ugly_contents = grunt.file.read("deploy/app.min.js");
+        config.ugly_contents = "";
+        for ( var i=0;i<config.ugly_files;i++ ) {
+            grunt.file.read(config.ugly_files[i]);
+        }
     }
     if ( grunt.file.exists(auth_file_name) ) {
     // grunt.log.writeln( config.js_contents );
@@ -129,7 +135,7 @@ module.exports = function(grunt) {
     // 
     grunt.registerTask('debug', "Create an html file that can run in its own tab", ['template:dev']);
     //
-    grunt.registerTask('ugly', "Create the ugly html for deployment",['uglify:ugly','template:ugly','setChecksum']);
+    grunt.registerTask('ugly', "Create the ugly html for deployment",['uglify:ugly','template:ugly']);
 
     grunt.registerTask('test-fast', "Run tests that don't need to connect to Rally", ['jasmine:fast']);
     grunt.registerTask('test-slow', "Run tests that need to connect to Rally", ['jasmine:slow']);

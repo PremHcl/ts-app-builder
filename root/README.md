@@ -10,6 +10,9 @@ you're going to need to have these installed:
  * node.js
  * grunt-cli
  * grunt-init
+ 
+Since you're getting this from github, we assume you have the command line
+version of git also installed.  If not, go get git.
 
 If you have those three installed, just type this in the root directory here
 to get set up to develop:

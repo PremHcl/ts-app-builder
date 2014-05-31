@@ -26,7 +26,7 @@ exports.template = function(grunt,init,done) {
         { 
             name: 'server', 
             message: 'URL for integration tests and debug file', 
-            'default': 'https://demo01.rallydev.com'
+            'default': 'https://demo-west.rallydev.com'
         }
     ], function(err,props){
         var files = init.filesToCopy(props);

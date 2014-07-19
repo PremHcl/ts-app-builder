@@ -38,6 +38,9 @@ module.exports = function(grunt) {
     // grunt.log.writeln( config.js_contents );
         var auth = grunt.file.readJSON(auth_file_name);
         config.auth = auth
+    } else {
+        grunt.log.writeln("");
+        grunt.log.writeln("WARNING: Slow tests won't run without an auth.json file");
     }
     
     grunt.initConfig({

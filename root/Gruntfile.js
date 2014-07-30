@@ -62,13 +62,13 @@ module.exports = function(grunt) {
                 },
                 prod: {
                     src: 'templates/App-tpl.html',
-                    dest: 'deploy/App.html',
+                    dest: 'deploy/App.txt',
                     engine: 'underscore',
                     variables: config
                 },
                 ugly: {
                     src: 'templates/App-ugly-tpl.html',
-                    dest: 'deploy/Ugly.html',
+                    dest: 'deploy/Ugly.txt',
                     engine: 'underscore',
                     variables: config                    
                 }

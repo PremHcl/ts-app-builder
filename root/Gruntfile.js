@@ -108,10 +108,11 @@ module.exports = function(grunt) {
         var fs = require('fs');
         var chk = 0x12345678,
             i;
-        var deploy_file = 'deploy/App.html';
+        var deploy_file = 'deploy/App.txt';
 
         var file = grunt.file.read(deploy_file);
         string = file.replace(/var CHECKSUM = .*;/,"");
+        string = string.replace(/\s/g,"");  //Remove all whitespace from the string.
         
         for (i = 0; i < string.length; i++) {
             chk += (string.charCodeAt(i) * i);

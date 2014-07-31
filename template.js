@@ -20,7 +20,7 @@ exports.template = function(grunt,init,done) {
     init.process({},[
         init.prompt('title','My App'),
         { name: 'shortname', message:'Short Name (no spaces)', 'default':'my-app'},
-        { name: 'sdk', message: 'SDK version', 'default': '2.0rc2' },
+        { name: 'sdk', message: 'SDK version', 'default': '2.0rc3' },
         { name: 'user', message: 'Username for integration tests' },
         { name: 'password', message: 'Password for integration tests' },
         { 

@@ -4,10 +4,8 @@ Ext.define('CustomApp', {
     logger: new Rally.technicalservices.Logger(),
     items: [
         {xtype:'container',itemId:'message_box',tpl:'Hello, <tpl>{_refObjectName}</tpl>'},
-        {xtype:'container',itemId:'display_box'} 
-        /*,
+        {xtype:'container',itemId:'display_box'},
         {xtype:'tsinfolink'}
-        */
     ],
     launch: function() {
         this.down('#message_box').update(this.getContext().getUser());

@@ -66,11 +66,17 @@ module.exports = function(grunt) {
                     engine: 'underscore',
                     variables: config
                 },
+                apikey: {
+                    src: 'templates/App-apikey-tpl.html',
+                    dest: 'deploy/ExternalApp.html',
+                    engine: 'underscore',
+                    variables: config
+                },
                 ugly: {
                     src: 'templates/App-ugly-tpl.html',
                     dest: 'deploy/Ugly.txt',
                     engine: 'underscore',
-                    variables: config                    
+                    variables: config
                 }
         },
         jasmine: {
@@ -132,7 +138,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     //tasks
-    grunt.registerTask('default', ['debug','build','ugly']);
+    grunt.registerTask('default', ['debug','build','ugly','apikey']);
     
     // (uses all the files in src/javascript)
     grunt.registerTask('build', "Create the html for deployment",['template:prod','setChecksum']);
@@ -140,6 +146,8 @@ module.exports = function(grunt) {
     grunt.registerTask('debug', "Create an html file that can run in its own tab", ['template:dev']);
     //
     grunt.registerTask('ugly', "Create the ugly html for deployment",['uglify:ugly','template:ugly']);
+    //
+    grunt.registerTask('apikey', "Create an html file that can run on another server", ['template:apikey']);
 
     grunt.registerTask('test-fast', "Run tests that don't need to connect to Rally", ['jasmine:fast']);
     grunt.registerTask('test-slow', "Run tests that need to connect to Rally", ['jasmine:slow']);

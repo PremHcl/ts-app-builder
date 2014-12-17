@@ -2,6 +2,7 @@ Ext.define('CustomApp', {
     extend: 'Rally.app.App',
     componentCls: 'app',
     logger: new Rally.technicalservices.Logger(),
+    defaults: { margin: 10 },
     items: [
         {xtype:'container',itemId:'message_box',tpl:'Hello, <tpl>{_refObjectName}</tpl>'},
         {xtype:'container',itemId:'display_box'},
@@ -30,7 +31,7 @@ Ext.define('CustomApp', {
     _loadAStoreWithAPromise: function(model_name, model_fields){
         var deferred = Ext.create('Deft.Deferred');
         
-        var defectStore = Ext.create('Rally.data.wsapi.Store', {
+        Ext.create('Rally.data.wsapi.Store', {
             model: model_name,
             fetch: model_fields,
             autoLoad: true,

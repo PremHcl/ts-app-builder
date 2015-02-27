@@ -1,4 +1,4 @@
-Ext.define('CustomApp', {
+Ext.define("{%= shortname %}", {
     extend: 'Rally.app.App',
     componentCls: 'app',
     logger: new Rally.technicalservices.Logger(),

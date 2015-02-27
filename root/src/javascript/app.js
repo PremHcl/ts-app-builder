@@ -9,23 +9,24 @@ Ext.define("{%= shortname %}", {
         {xtype:'tsinfolink'}
     ],
     launch: function() {
+        var me = this;
+        this.setLoading("Loading stuff...");
+
         this.down('#message_box').update(this.getContext().getUser());
         
-        var m_name = 'Defect',
-        m_fields = ['Name','State'];
+        var model_name = 'Defect',
+            field_names = ['Name','State'];
         
-        this._loadAStoreWithAPromise(m_name, m_fields).then({
+        this._loadAStoreWithAPromise(model_name, field_names).then({
             scope: this,
-            success: function(store){
-                this.down('#display_box').add({
-                    xtype: 'rallygrid',
-                    store: store,
-                    columnCfgs: m_fields
-                });
+            success: function(store) {
+                this._displayGrid(store,field_names);
             },
             failure: function(error_message){
                 alert(error_message);
             }
+        }).always(function() {
+            me.setLoading(false);
         });
     },
     _loadAStoreWithAPromise: function(model_name, model_fields){
@@ -33,18 +34,23 @@ Ext.define("{%= shortname %}", {
         
         Ext.create('Rally.data.wsapi.Store', {
             model: model_name,
-            fetch: model_fields,
-            autoLoad: true,
-            listeners: {
-                load: function(store, records, successful) {
-                    if (successful){
-                        deferred.resolve(store);
-                    } else {
-                        deferred.reject('Failed to load store for model [' + model_name + '] and fields [' + model_fields.join(',') + ']');
-                    }
+            fetch: model_fields
+        }).load({
+            callback : function(records, operation, successful) {
+                if (successful){
+                    deferred.resolve(this);
+                } else {
+                    deferred.reject('');
                 }
             }
         });
         return deferred.promise;
+    },
+    _displayGrid: function(store,field_names){
+        this.down('#display_box').add({
+            xtype: 'rallygrid',
+            store: store,
+            columnCfgs: field_names
+        });
     }
 });

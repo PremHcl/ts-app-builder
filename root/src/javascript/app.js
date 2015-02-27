@@ -31,7 +31,9 @@ Ext.define("{%= shortname %}", {
     },
     _loadAStoreWithAPromise: function(model_name, model_fields){
         var deferred = Ext.create('Deft.Deferred');
-        
+        var me = this;
+        this.logger.log("Starting load:",model_name,model_fields);
+          
         Ext.create('Rally.data.wsapi.Store', {
             model: model_name,
             fetch: model_fields
@@ -40,7 +42,8 @@ Ext.define("{%= shortname %}", {
                 if (successful){
                     deferred.resolve(this);
                 } else {
-                    deferred.reject('');
+                    me.logger.log("Failed: ", operation);
+                    deferred.reject('Problem loading: ' + operation.error.errors.join('. '));
                 }
             }
         });

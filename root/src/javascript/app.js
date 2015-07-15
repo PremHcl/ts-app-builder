@@ -1,13 +1,13 @@
-Ext.define("{%= shortname %}", {
+Ext.define("TSApp", {
     extend: 'Rally.app.App',
     componentCls: 'app',
     logger: new Rally.technicalservices.Logger(),
     defaults: { margin: 10 },
     items: [
         {xtype:'container',itemId:'message_box',tpl:'Hello, <tpl>{_refObjectName}</tpl>'},
-        {xtype:'container',itemId:'display_box'},
-        {xtype:'tsinfolink'}
+        {xtype:'container',itemId:'display_box'}
     ],
+    
     launch: function() {
         var me = this;
         this.setLoading("Loading stuff...");
@@ -29,6 +29,7 @@ Ext.define("{%= shortname %}", {
             me.setLoading(false);
         });
     },
+    
     _loadAStoreWithAPromise: function(model_name, model_fields){
         var deferred = Ext.create('Deft.Deferred');
         var me = this;
@@ -49,11 +50,38 @@ Ext.define("{%= shortname %}", {
         });
         return deferred.promise;
     },
+    
     _displayGrid: function(store,field_names){
         this.down('#display_box').add({
             xtype: 'rallygrid',
             store: store,
             columnCfgs: field_names
         });
+    },
+    
+    getOptions: function() {
+        return [
+            {
+                text: 'About...',
+                handler: this._launchInfo,
+                scope: this
+            }
+        ];
+    },
+    
+    _launchInfo: function() {
+        if ( this.about_dialog ) { this.about_dialog.destroy(); }
+        this.about_dialog = Ext.create('Rally.technicalservices.InfoLink',{});
+    },
+    
+    isExternal: function(){
+        return typeof(this.getAppId()) == 'undefined';
+    },
+    
+    //onSettingsUpdate:  Override
+    onSettingsUpdate: function (settings){
+        this.logger.log('onSettingsUpdate',settings);
+        Ext.apply(this, settings);
+        this.launch();
     }
 });

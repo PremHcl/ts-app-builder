@@ -81,7 +81,7 @@ Ext.define("{%= shortname %}", {
     //onSettingsUpdate:  Override
     onSettingsUpdate: function (settings){
         this.logger.log('onSettingsUpdate',settings);
-        Ext.apply(this, settings);
+        // Ext.apply(this, settings);
         this.launch();
     }
 });

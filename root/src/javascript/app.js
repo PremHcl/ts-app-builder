@@ -7,7 +7,11 @@ Ext.define("{%= shortname %}", {
         {xtype:'container',itemId:'message_box',tpl:'Hello, <tpl>{_refObjectName}</tpl>'},
         {xtype:'container',itemId:'display_box'}
     ],
-    
+
+    integrationHeaders : {
+        name : "{%= shortname %}"
+    },
+                        
     launch: function() {
         var me = this;
         this.setLoading("Loading stuff...");

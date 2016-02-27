@@ -60,6 +60,12 @@ module.exports = function(grunt) {
                     engine: 'underscore',
                     variables: config
                 },
+                devApiKey: {
+                    src: 'templates/App-debug-apikey-tpl.html',
+                    dest: 'App-debug-apikey.html',
+                    engine: 'underscore',
+                    variables: config
+                },
                 prod: {
                     src: 'templates/App-tpl.html',
                     dest: 'deploy/App.txt',
@@ -149,7 +155,7 @@ module.exports = function(grunt) {
     // (uses all the files in src/javascript)
     grunt.registerTask('build', "Create the html for deployment",['template:prod','setChecksum']);
     // 
-    grunt.registerTask('debug', "Create an html file that can run in its own tab", ['template:dev']);
+    grunt.registerTask('debug', "Create an html file that can run in its own tab", ['template:dev','template:devApiKey']);
     //
     grunt.registerTask('ugly', "Create the ugly html for deployment",['uglify:ugly','template:ugly']);
     //

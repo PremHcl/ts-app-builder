@@ -1,7 +1,5 @@
 {
     "name": "{%= title %}",
-    "className": "{%= shortname %}",
-    "server": "{%= server %}",
     "sdk": "{%= sdk %}",
-    "apiKey": "_PUT_APIKEY_HERE_"
+    "className": "{%= shortname %}"
 }

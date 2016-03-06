@@ -174,7 +174,6 @@ module.exports = function(grunt) {
         
         var done = this.async();
         var request = require('request');
-        var htmlparser = require('htmlparser');
         
         var j = request.jar();
         request.defaults({jar: j});

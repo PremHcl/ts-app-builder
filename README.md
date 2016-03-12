@@ -1,5 +1,8 @@
 #Tech Services App Builder
-This app builder will create a new space for you, setting up necessary structures for testing and development.  It'll create a structure that provides:
+
+The app builder is similar to the Rally App Builder except that it doesn't provide a web server, it separates out server information to a non-version-controlled file, and it allows you to install to Rally from the command line.
+
+This app builder can create a new space for you, setting up necessary structures for testing and development.  It'll create a structure that provides:
 
   * src/javascript:  All the JS files saved here will be compiled into the 
   target html file
@@ -15,14 +18,16 @@ This app builder will create a new space for you, setting up necessary structure
   and debug html files live.  The advantage of using these templates is that
   you can configure the behavior of the html around the JS.
   * config.json: This file contains the configuration settings necessary to
-  create the debug and production html files.  Server is only used for debug,
-  name, className and sdk are used for both.
+  create the debug and production html files. 
+  * auth.json: This file contains necessary configuration settings that are
+  not checked into version control.
   * package.json: This file lists the dependencies for grunt
 
 #Installing
 
-1.  **Install node.js**  This really is as simple as going to node[node] and pushing the Install button.  Afterward, type 
-this command to see that it installed:
+1.  **Install node.js**  This really is as simple as going to node[node] 
+and pushing the Install button.  Afterward, type this command to see that 
+it installed:
 
         npm --version
 
@@ -47,10 +52,9 @@ Create a new directory for your app, cd into that directory, then type:
 
     grunt-init ts-app-builder
 
-You'll be prompted for some default values.  You can change them in teh resulting config.json and auth.json
-files. 
+You'll be prompted for some default values.  You can change them in the resulting config.json and auth.json files. 
 
-After the prompt comes back, do a local install by typing (ignore warnings about missing repositories):
+After the prompt comes back, do a local install of the required npm libraries by typing (ignore warnings about missing repositories):
 
     npm install
     
@@ -94,6 +98,31 @@ Use grunt test-slow to run the Jasmine tests in the slow directory.  Typically, 
 directory are more like integration tests in that they require connecting to Rally and interacting with
 data.
 
+### grunt install
+
+Use grunt install to build the deploy file and then install it into a new page/app in Rally.  It will create the page on the Home tab and then add a custom html app to the page.  The page will be named using the "name" key in the config.json file (with an asterisk prepended).
+
+To use this task, you must create an auth.json file that contains the following keys:
+{
+    "username": "fred@fred.com",
+    "password": "fredfredfred",
+    "server": "https://us1.rallydev.com"
+}
+
+(Use your username and password, of course.)  NOTE: not sure why yet, but this task does not work against the demo environments.  Also, .gitignore is configured so that this file does not get committed.  Do not commit this file with a password in it!
+
+When the first install is complete, the script will add the ObjectIDs of the page and panel to the auth.json file, so that it looks like this:  
+
+{
+    "username": "fred@fred.com",
+    "password": "fredfredfred",
+    "server": "https://us1.rallydev.com",
+    "pageOid": "52339218186",
+    "panelOid": 52339218188
+}
+
+On subsequent installs, the script will write to this same page/app. Remove the
+pageOid and panelOid lines to install in a new place.  CAUTION:  Currently, error checking is not enabled, so it will fail silently.
 
 --
 [grunt-init]: http://gruntjs.com/project-scaffolding

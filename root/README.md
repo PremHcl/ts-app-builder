@@ -69,9 +69,9 @@ Use grunt test-slow to run the Jasmine tests in the slow directory.  Typically, 
 directory are more like integration tests in that they require connecting to Rally and interacting with
 data.
 
-##### grunt install
+##### grunt deploy
 
-Use grunt install to build the deploy file and then install it into a new page/app in Rally.  It will create the page on the Home tab and then add a custom html app to the page.  The page will be named using the "name" key in the config.json file (with an asterisk prepended).
+Use grunt deploy to build the deploy file and then install it into a new page/app in Rally.  It will create the page on the Home tab and then add a custom html app to the page.  The page will be named using the "name" key in the config.json file (with an asterisk prepended).
 
 To use this task, you must create an auth.json file that contains the following keys:
 {
@@ -94,3 +94,8 @@ When the first install is complete, the script will add the ObjectIDs of the pag
 
 On subsequent installs, the script will write to this same page/app. Remove the
 pageOid and panelOid lines to install in a new place.  CAUTION:  Currently, error checking is not enabled, so it will fail silently.
+
+##### grunt watch
+
+Run this to watch files (js and css).  When a file is saved, the task will automatically build and deploy as shown in the deploy section above.
+

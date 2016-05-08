@@ -13,7 +13,18 @@ module.exports = function(grunt) {
     
         config = grunt.file.readJSON('config.json');
 
-        config.js_files = grunt.file.expand(['src/javascript/utils/*.js','src/javascript/*.js']);
+        config.js_files = grunt.file.expand([
+            'src/javascript/utils/*.js',
+            'src/javascript/rally-lib/*.js',
+            'src/javascript/*.js'
+        ]);
+        
+        if ( config.javascript && config.javascript.length > 0 ) {
+            config.js_files = [];
+            for ( var i=0; i<config.javascript.length; i++ ) {
+                config.js_files.push( "src/javascript/" + config.javascript[i]);
+            }
+        }
 
         config.ugly_files = grunt.file.expand(['deploy/app.min.*.js']);
         
@@ -227,7 +238,7 @@ module.exports = function(grunt) {
                 if ( response.statusCode != 200 ) {
                     grunt.log.writeln('oops');
                 }
-                //grunt.log.writeln('response body', body);
+                grunt.log.writeln('response body:', body);
                 grunt.log.writeln('done');
             });
         };
@@ -265,22 +276,26 @@ module.exports = function(grunt) {
                 // looking for
                 // {"oid":52337581989}
                 var response_object = JSON.parse(body);
+               
                 
                 // save IDs:
                 grunt.log.writeln('Save IDs');
                 config.auth.pageOid = page_oid;
                 config.auth.panelOid = response_object.oid;
                 grunt.file.write(auth_file_name,JSON.stringify(config.auth,null,'\t') + "\r\n");
-                
+              
+                grunt.log.writeln('response: ', response_object);  
                 grunt.log.writeln('Created panel with oid:', response_object.oid);
                 installApp(page_oid,response_object.oid);
             });
         };
         
         var makePage = function(key) {
-            var uri = config.auth.server + "/slm/wt/edit/create.sp";
+            //var uri = config.auth.server + "/slm/wt/edit/create.sp";
+            var uri = config.auth.server + "/slm/wt/edit/createAndClose.sp";
             var parameters = {
-                cpoid:729766,
+                //cpoid:729766,
+                cpoid:10909656256,
                 key: key
             };
 
@@ -288,7 +303,8 @@ module.exports = function(grunt) {
                 name: "*" + config.name,
                 editorMode: 'create',
                 pid: 'myhome',
-                oid: 6440917,
+                //oid: 6440917,
+                oid: 55525659731,
                 timeboxFilter:'none' 
             };
 
@@ -310,14 +326,23 @@ module.exports = function(grunt) {
                     //grunt.log.writeln('--', response.request.body);
                 }
                 //grunt.log.writeln('response:', response);
-                //grunt.log.writeln('response body', body);
+                grunt.log.writeln('response body', body);
+                grunt.log.writeln('--');
                 // looking for
                 // <input type="hidden" name="oid" value="52337144851"/>
-                var page_oid = body.replace(/(.|[\r\n])*name="oid"/,"").replace(/"\/\>(.|[\r\n])*/,"").replace(/.*"/,"");
+                //var page_oid = body.replace(/(.|[\r\n])*name="oid"/,"").replace(/"\/\>(.|[\r\n])*/,"").replace(/.*"/,"");
+                var page_oid_array = body.replace(/(.|[\r\n])*refreshWindow\(/,"").replace(/\).*(.|[\r\n])*/,"").split(',');
+
+                if ( page_oid_array.length < 2 ) {
+                    grunt.log.writeln("Problem!");
+                } else {
+                    grunt.log.writeln('--', page_oid_array); 
+                    var page_oid = page_oid_array[1];
                 
-                grunt.log.writeln('Created', payload.name, " at oid:", page_oid);
+                    grunt.log.writeln('Created', payload.name, " at oid:", page_oid);
                 
-                makeApp(key,page_oid)
+                    makeApp(key,page_oid)
+                }
             });
         };
        

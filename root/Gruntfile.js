@@ -137,7 +137,7 @@ module.exports = function(grunt) {
         var deploy_file = grunt.file.read(deploy_file_name);
 
         string = deploy_file.replace(/var CHECKSUM = .*;/,"");
-        string = string.replace(/var BUILDER = .*;/,"");
+        string = string.replace(/var BUILDER  = .*;/,"");
         string = string.replace(/\s/g,"");  //Remove all whitespace from the string.
 
         for (i = 0; i < string.length; i++) {

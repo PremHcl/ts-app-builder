@@ -20,13 +20,14 @@ exports.template = function(grunt,init,done) {
     init.process({},[
         init.prompt('title','Technical Services App'),
         { name: 'shortname', message:'Short Name (no spaces)', 'default':'TSApp'},
-        { name: 'sdk', message: 'SDK version', 'default': '2.0' },
+        { name: 'formattedid', message:'Initial Story FormattedID', 'default':''},
+        { name: 'sdk', message: 'SDK version', 'default': '2.1' },
         { name: 'user', message: 'Username for integration tests' },
         { name: 'password', message: 'Password for integration tests' },
         { 
             name: 'server', 
             message: 'URL for integration tests and debug file', 
-            'default': 'https://demo-west.rallydev.com'
+            'default': 'https://us1.rallydev.com'
         }
     ], function(err,props){
         var files = init.filesToCopy(props);

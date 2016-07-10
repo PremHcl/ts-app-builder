@@ -44,7 +44,7 @@ Ext.define('Rally.technicalservices.InfoLink',{
         var chk = 0x12345678,
             i;
         string = string.replace(/var CHECKSUM = .*;/,"");
-        string = string.replace(/var BUILDER = .*;/,"");
+        string = string.replace(/var BUILDER  = .*;/,"");
         string = string.replace(/\s/g,"");  //Remove all whitespace from the string.
        
         for (i = 0; i < string.length; i++) {
@@ -151,14 +151,20 @@ Ext.define('Rally.technicalservices.InfoLink',{
         });
         
         if ( APP_BUILD_DATE ) {
+            var build_html = Ext.String.format("Built on: {0} <br/>Built by: {1}",
+                APP_BUILD_DATE,
+                BUILDER);
+                
+            if ( STORY ) {
+                build_html = build_html + "<br/>Source story: " + STORY;
+            }
+                
             this.addDocked({
                 xtype:'container',
                 cls: 'build-info',
                 padding: 2,
                 dock: 'bottom',
-                html: Ext.String.format("Build date/time: {0} ({1})",
-                    APP_BUILD_DATE,
-                    BUILDER)
+                html: build_html
             });
         }
     }

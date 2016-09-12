@@ -2,6 +2,8 @@
 
 ## Development Notes
 
+![screenshot](./images/screenshot.png "This is an example")
+
 ### First Load
 
 If you've just downloaded this from github and you want to do development, 

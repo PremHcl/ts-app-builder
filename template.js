@@ -31,6 +31,6 @@ exports.template = function(grunt,init,done) {
         }
     ], function(err,props){
         var files = init.filesToCopy(props);
-        init.copyAndProcess(files,props);
+        init.copyAndProcess(files, props, {noProcess: '*.png'});
     });
 };

@@ -101,8 +101,8 @@ module.exports = function(grunt) {
                 }
         },
         watch: {
-            files: [config.js_files, config.css_files],
-            tasks: ['deploy']
+            files: ['test/fast/*-spec.js',config.js_files, config.css_files],
+            tasks: ['test-and-deploy']
         },
         jasmine: {
             fast: {
@@ -384,6 +384,8 @@ module.exports = function(grunt) {
 
     grunt.registerTask('test-fast', "Run tests that don't need to connect to Rally", ['jasmine:fast']);
     grunt.registerTask('test-slow', "Run tests that need to connect to Rally", ['jasmine:slow']);
+
+    grunt.registerTask('test-and-deploy', 'Build and deploy app to the location in auth.json',['test-fast','build','install']);
 
     grunt.registerTask('deploy', 'Build and deploy app to the location in auth.json',['build','install']);
 };

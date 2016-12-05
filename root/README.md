@@ -1,8 +1,11 @@
 #{%= title %}
 
-## Development Notes
+## Summary/Description
 
 ![screenshot](./images/screenshot.png "This is an example")
+
+## Development Notes
+
 
 ### First Load
 

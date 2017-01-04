@@ -69,30 +69,14 @@ module.exports = function(grunt) {
                     engine: 'underscore',
                     variables: config
                 },
-                devApiKey: {
-                    src: 'templates/App-debug-apikey-tpl.html',
-                    dest: 'App-debug-apikey.html',
-                    engine: 'underscore',
-                    variables: config
-                },
+                
                 prod: {
                     src: 'templates/App-tpl.html',
                     dest: 'deploy/App.txt',
                     engine: 'underscore',
                     variables: config
                 },
-                apikey: {
-                    src: 'templates/App-apikey-tpl.html',
-                    dest: 'deploy/ExternalApp.txt',
-                    engine: 'underscore',
-                    variables: config
-                },
-                confluence: {
-                    src: 'templates/App-confluence-tpl.html',
-                    dest: 'deploy/ConfluenceApp.txt',
-                    engine: 'underscore',
-                    variables: config
-                },
+                
                 ugly: {
                     src: 'templates/App-ugly-tpl.html',
                     dest: 'deploy/Ugly.txt',
@@ -135,13 +119,18 @@ module.exports = function(grunt) {
         }
     });
    
-    grunt.registerTask('setPostBuildInfo', 'Make a sloppy checksum', function() {
+    grunt.registerTask('putUglyInConfig', 'add results of uglification to the config', function() {
+        config.ugly_contents = grunt.file.read('deploy/app.min.js');
+    });
+    
+
+    grunt.registerTask('setPostBuildInfo', 'Make a sloppy checksum', function(deploy_file_name) {
         var fs = require('fs'),
             username = require('username');
             chk = 0x12345678,
-            i,
-            deploy_file_name = 'deploy/App.txt';
+            i;
 
+        grunt.log.writeln('deploy file:', deploy_file_name);
         var deploy_file = grunt.file.read(deploy_file_name);
 
         string = deploy_file.replace(/var CHECKSUM = .*;/,"");
@@ -154,8 +143,6 @@ module.exports = function(grunt) {
         var builder = username.sync();
         grunt.log.writeln('setting builder:', builder);
 
-        grunt.log.writeln('sloppy checksum: ' + chk);
-        grunt.log.writeln('length: ' + string.length);
 // 
         grunt.template.addDelimiters('square-brackets','[%','%]');
        
@@ -168,7 +155,7 @@ module.exports = function(grunt) {
         grunt.file.write(deploy_file_name,output);
     });
     
-    grunt.registerTask('install', 'Deploy the app to a rally instance', function() {
+    grunt.registerTask('install', 'Deploy the app to a rally instance', function(deploy_file_name) {
         
         if ( ! config.auth ) { 
             grunt.log.writeln("To deploy, define server, username and password in auth.json file");
@@ -199,13 +186,12 @@ module.exports = function(grunt) {
         request.defaults({jar: j});
 
         var installApp = function(page_oid,panel_oid) {
-            var html = grunt.file.read('deploy/App.txt');
+            // DEFAULT TO ugly for deploying
+            var html = grunt.file.read('deploy/Ugly.txt');
             
             var uri = config.auth.server + "/slm/dashboard/changepanelsettings.sp";
             grunt.log.writeln('URI:', uri);
-//            grunt.log.writeln('Page OID', page_oid);
-//            grunt.log.writeln('Panel OID', panel_oid);
-            
+
             var parameters = {
                 cpoid:10909656256,
                 _slug:'/custom/' + page_oid
@@ -235,14 +221,12 @@ module.exports = function(grunt) {
                 if ( response.statusCode != 200 ) {
                     grunt.log.writeln('oops');
                 }
-                //grunt.log.writeln('response body', body);
-                grunt.log.writeln('done');
+                grunt.log.writeln('--Deployed--');
             });
         };
         
         var makeApp = function(key,page_oid) {
             var uri = config.auth.server + "/slm/dashboard/addpanel.sp";
-//            grunt.log.writeln('URI:', uri);
             
             var parameters = {
                 cpoid:10909656256,
@@ -269,9 +253,7 @@ module.exports = function(grunt) {
                 if ( response.statusCode != 200 ) {
                     grunt.log.writeln('oops');
                 }
-                //grunt.log.writeln('response body', body);
-                // looking for
-                // {"oid":52337581989}
+
                 var response_object = JSON.parse(body);
                 
                 // save IDs:
@@ -371,21 +353,20 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     
     //tasks
-    grunt.registerTask('default', ['debug','build','ugly','apikey']);
+    grunt.registerTask('default', ['debug','ugly']);
     
-    // (uses all the files in src/javascript)
-    grunt.registerTask('build', "Create the html for deployment",['template:prod','setPostBuildInfo']);
+    // a human readable .txt file
+    grunt.registerTask('pretty', "Create the html for deployment",['template:prod','setPostBuildInfo:deploy/App.txt']);
     // 
-    grunt.registerTask('debug', "Create an html file that can run in its own tab", ['template:dev','template:devApiKey']);
+    grunt.registerTask('debug', "Create an html file that can run in its own tab", ['template:dev']);
     //
-    grunt.registerTask('ugly', "Create the ugly html for deployment",['uglify:ugly','template:ugly']);
+    grunt.registerTask('ugly', "Create the ugly html for deployment",['uglify:ugly','putUglyInConfig','template:ugly','setPostBuildInfo:deploy/Ugly.txt']);
     //
-    grunt.registerTask('apikey', "Create an html file that can run on another server", ['template:apikey','template:confluence']);
 
     grunt.registerTask('test-fast', "Run tests that don't need to connect to Rally", ['jasmine:fast']);
     grunt.registerTask('test-slow', "Run tests that need to connect to Rally", ['jasmine:slow']);
 
-    grunt.registerTask('test-and-deploy', 'Build and deploy app to the location in auth.json',['test-fast','build','install']);
+    grunt.registerTask('test-and-deploy', 'Build and deploy app to the location in auth.json',['test-fast','ugly','install']);
 
-    grunt.registerTask('deploy', 'Build and deploy app to the location in auth.json',['build','install']);
+    grunt.registerTask('deploy', 'Build and deploy app to the location in auth.json',['ugly','install']);
 };

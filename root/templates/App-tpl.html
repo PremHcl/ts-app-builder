@@ -2,7 +2,7 @@
 <html>
 <head>
     <title><%= name %></title>
-    <!--  (c) 2016 CA Technologies.  All Rights Reserved. -->
+    <!--  (c) 2017 CA Technologies.  All Rights Reserved. -->
     <!--  Build Date: <%= new Date() %> -->
     
     <script type="text/javascript">
@@ -12,10 +12,12 @@
         var CHECKSUM = [%= checksum %];
     </script>
     
-    <script type="text/javascript" src="/apps/<%= sdk %>/sdk.js"></script>
-    <!-- our highcharts (needed so that we can add patterns) -->
+    <script type="text/javascript" src="<%= auth.server %>/apps/<%= sdk %>/sdk-debug.js"></script>
+    <!-- our highcharts (needed so that we can add patterns) 
     <script type="text/javascript" src="/apps/<%= sdk %>/lib/analytics/analytics-all.js"></script>
-
+    -->
+    
+    
     <script type="text/javascript">
         Rally.onReady(function() {
             <%= js_contents %>

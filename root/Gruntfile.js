@@ -353,7 +353,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     
     //tasks
-    grunt.registerTask('default', ['debug','ugly']);
+    grunt.registerTask('default', ['debug','build','ugly']);
     
     // a human readable .txt file
     grunt.registerTask('pretty', "Create the html for deployment",['template:prod','setPostBuildInfo:deploy/App.txt']);
@@ -369,4 +369,6 @@ module.exports = function(grunt) {
     grunt.registerTask('test-and-deploy', 'Build and deploy app to the location in auth.json',['test-fast','ugly','install']);
 
     grunt.registerTask('deploy', 'Build and deploy app to the location in auth.json',['ugly','install']);
+    
+    grunt.registerTask('deploy-pretty', 'Build and deploy app to the location in auth.json',['pretty','install']);
 };

@@ -353,7 +353,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     
     //tasks
-    grunt.registerTask('default', ['debug','build','ugly']);
+    grunt.registerTask('default', ['debug','ugly']);
     
     // a human readable .txt file
     grunt.registerTask('pretty', "Create the html for deployment",['template:prod','setPostBuildInfo:deploy/App.txt']);

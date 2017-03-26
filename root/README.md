@@ -102,5 +102,10 @@ pageOid and panelOid lines to install in a new place.  CAUTION:  Currently, erro
 
 ##### grunt watch
 
-Run this to watch files (js and css).  When a file is saved, the task will automatically build and deploy as shown in the deploy section above.
+Run this to watch files (js and css).  When a file is saved, the task will automatically build, run fast tests, and deploy as shown in the deploy section above.
+
+##### grunt --help  
+
+Get a full listing of available targets.
+
 

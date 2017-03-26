@@ -58,7 +58,7 @@ After the prompt comes back, do a local install of the required npm libraries by
 
     npm install
     
-After install is complete, you should be able to run the fast tests and get one success and one failure. 
+After install is complete, you should be able to run the fast tests and get intentional failures.
 Something like this:
 
     Running "jasmine:fast" (jasmine) task
@@ -90,7 +90,8 @@ Use grunt build to create the production html file.  We still have to copy the h
 ### grunt test-fast
 
 Use grunt test-fast to run the Jasmine tests in the fast directory.  Typically, the tests in the fast 
-directory are more pure unit tests and do not need to connect to Rally.
+directory are more pure unit tests and do not need to connect to Rally.  Note that the sdk is now included in 
+the package.json, so it is available locally.
 
 ### grunt test-slow
 

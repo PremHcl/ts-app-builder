@@ -20,7 +20,7 @@ exports.template = function(grunt,init,done) {
     init.process({},[
         init.prompt('title','Technical Services App'),
         { name: 'shortname', message:'Short Name (no spaces)', 'default':'TSApp'},
-        { name: 'formattedid', message:'Initial Story FormattedID', 'default':''},
+        { name: 'formattedid', message:'Initial Artifact FormattedID', 'default':''},
         { name: 'sdk', message: 'SDK version', 'default': '2.1' },
         { name: 'user', message: 'Username for integration tests' },
         { name: 'password', message: 'Password for integration tests' },

@@ -24,6 +24,12 @@ to get set up to develop:
 
   npm install
 
+#### Deployment & Tests
+
+If you want to use the automatic deployment mechanism, be sure to use the 
+**makeauth** task with grunt to create a local file that is used to connect
+to Rally.  This resulting auth.json file should NOT be checked in.
+
 ### Structure
 
   * src/javascript:  All the JS files saved here will be compiled into the 
@@ -42,9 +48,9 @@ to get set up to develop:
   * config.json: This file contains the configuration settings necessary to
   create the debug and production html files.  
   * package.json: This file lists the dependencies for grunt
-  * auth.json: This file should NOT be checked in.  Create this to create a
-  debug version of the app, to run the slow test specs and/or to use grunt to
-  install the app in your test environment.  It should look like:
+  * auth.json: This file should NOT be checked in.  This file is needed for deploying
+  and testing.  You can use the makeauth task to create this or build it by hand in this'
+  format:
     {
         "username":"you@company.com",
         "password":"secret",
@@ -78,7 +84,10 @@ data.
 
 Use grunt deploy to build the deploy file and then install it into a new page/app in Rally.  It will create the page on the Home tab and then add a custom html app to the page.  The page will be named using the "name" key in the config.json file (with an asterisk prepended).
 
-To use this task, you must create an auth.json file that contains the following keys:
+You can use the makeauth task to create this file OR construct it by hand.  Caution: the 
+makeauth task will delete this file.
+
+The auth.json file must contain the following keys:
 {
     "username": "fred@fred.com",
     "password": "fredfredfred",
@@ -103,6 +112,10 @@ pageOid and panelOid lines to install in a new place.  CAUTION:  Currently, erro
 ##### grunt watch
 
 Run this to watch files (js and css).  When a file is saved, the task will automatically build, run fast tests, and deploy as shown in the deploy section above.
+
+##### grunt makeauth
+
+This task will create an auth.json file in the proper format for you.  **Be careful** this will delete any existing auth.json file.  See **grunt deploy** to see the contents and use of this file.
 
 ##### grunt --help  
 

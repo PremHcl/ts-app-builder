@@ -4,8 +4,8 @@
   "version": "0.2.0",
   "dependencies": {},
   "devDependencies": {
-    "grunt": "~0.4.5",
-    "grunt-cli": "0.1.6",
+    "grunt": "~1.0.1",
+    "grunt-cli": "1.2.0",
     "grunt-contrib-jasmine": "1.1.0",
     "grunt-templater": "git://github.com/rockwood/grunt-templater.git",
     "underscore": "1.8.3",

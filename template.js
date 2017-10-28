@@ -1,10 +1,10 @@
 /*
  * ts-app-builder
  */
- 
+
 'use strict';
 
-exports.description = 'Create a Rally app with TS test structure';
+exports.description = 'Create a Rally app with TS structure';
 
 // before the questions
 exports.notes = '\nAfter this is finished, be sure to run "npm install" \n';
@@ -19,18 +19,21 @@ exports.warnOn = '*';
 exports.template = function(grunt,init,done) {
     init.process({},[
         init.prompt('title','Technical Services App'),
-        { name: 'shortname', message:'Short Name (no spaces)', 'default':'TSApp'},
+        { name: 'shortname', message:'Class Name (no spaces)', 'default':'CArABU.app.TSApp'},
         { name: 'formattedid', message:'Initial Artifact FormattedID', 'default':''},
         { name: 'sdk', message: 'SDK version', 'default': '2.1' },
-        { name: 'user', message: 'Username for integration tests' },
-        { name: 'password', message: 'Password for integration tests' },
-        { 
-            name: 'server', 
-            message: 'URL for integration tests and debug file', 
+        { name: 'version', message: 'Initial app version', 'default': '0.1' },
+        { name: 'user', message: 'Username for integration tests & deployment' },
+        { name: 'password', message: 'Password for integration tests & deployment' },
+        {
+            name: 'server',
+            message: 'URL for integration tests and debug file',
             'default': 'https://us1.rallydev.com'
         }
     ], function(err,props){
         var files = init.filesToCopy(props);
         init.copyAndProcess(files, props, {noProcess: '*.png'});
+        console.log('');
+        console.log(exports.after);
     });
 };

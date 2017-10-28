@@ -222,7 +222,7 @@ module.exports = function(grunt) {
 
         var installApp = function(page_oid,panel_oid) {
             // DEFAULT TO ugly for deploying
-            var html = grunt.file.read('deploy/Ugly.txt');
+            var html = grunt.file.read(deploy_file_name);
 
             var uri = config.auth.server + "/slm/dashboard/changepanelsettings.sp";
             grunt.log.writeln('URI:', uri);

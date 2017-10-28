@@ -1,6 +1,7 @@
 {
     "name": "{%= title %}",
     "sdk": "{%= sdk %}",
+    "version": "{%= version %}",
     "className": "{%= shortname %}",
-    "story": "{%= formattedid %}"
+    "artifact": "{%= formattedid %}"
 }

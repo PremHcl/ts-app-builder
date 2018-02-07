@@ -23,7 +23,7 @@ This app builder can create a new space for you, setting up necessary structures
   not checked into version control.
   * package.json: This file lists the dependencies for grunt
 
-#Installing
+# Installing
 
 1.  **Install node.js**  This really is as simple as going to node[node] 
 and pushing the Install button.  Afterward, type this command to see that 
@@ -40,7 +40,7 @@ sudo as shown below. On Windows, you will not use the sudo part of the command.
 3.  **Install template** The easiest thing is to install this template to 
   your home directory:
     
-    git clone https://github.com/RallyTechServices/ts-app-builder.git ~/.grunt-init/ts-app-builder
+    `git clone https://github.com/RallyTechServices/ts-app-builder.git ~/.grunt-init/ts-app-builder`
 
   _(Windows users, see [the documentation][grunt-init] for the correct destination directory path)_
 
@@ -49,18 +49,18 @@ sudo as shown below. On Windows, you will not use the sudo part of the command.
 When 1-3 are done, you can do this step in as many different places as you like.
 
 Create a new directory for your app, cd into that directory, then type:
-
+```
     grunt-init ts-app-builder
-
+```
 You'll be prompted for some default values.  You can change them in the resulting config.json and auth.json files. 
 
 After the prompt comes back, do a local install of the required npm libraries by typing (ignore warnings about missing repositories):
-
+```
     npm install
-    
+``` 
 After install is complete, you should be able to run the fast tests and get intentional failures.
 Something like this:
-
+```
     Running "jasmine:fast" (jasmine) task
     Testing jasmine specs via phantom
     x.
@@ -69,14 +69,28 @@ Something like this:
     2 specs in 0.002s.
     >> 1 failures
     Warning: Task "jasmine:fast" failed. Use --force to continue.
-
+```
 Another check:  You should be able to compile the debug version and view it (after logging in to Rally) 
 in a new tab.  
-
+```
     grunt debug
+```
+
+# Usage of NPM scripts
+
+NPM scripts have been created to make it easier to watch for changes and re-run grunt tasks. For a list of options, see `package.json` or run `npm run`.
+For example `npm run deploy-debugsdk:watch` will watch for code changes and re-deploy an unminified version with the debug SDK to allow easy in-browser
+debugging of the app or the SDK itself.
 
 # Usage of the grunt file
-##Tasks
+## Tasks
+
+### grunt deploy, deploy-pretty, deploy-debugsdk
+
+Creates the application HTML file and deploys it to the account configured in `auth.json`.
+* `deploy` - deploys a minified version
+* `deploy-pretty` - deploys an unminified version which allows in-browser debugging
+* `deploy-debugsdk` - deploys and unminified version that uses the debug SDK to allow breakpoints in the app code OR the SDK
     
 ### grunt debug
 
